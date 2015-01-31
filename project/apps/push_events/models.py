@@ -1,13 +1,13 @@
-from sqlalchemy import Column, String, Integer, Model, ForeignKey, DateTime
-from sqlalchemy.orm import Relationship
+from sqlalchemy import Model
+from sqlalchemy.orm import relationship
 
 
 class Repository(Model):
-    id = Column(Integer, unique=True)
+    id = db.Column(Integer, unique=True)
     repo_name = Column(String, unique=True)
     repo_url = Column(String, unique=True)
-    user_id =  Column(Integer, ForeignKey('user.id'))
-    commit_id = Relationship('Commit')
+    user_id = Column(Integer, ForeignKey('user.id'))
+    commit_id = relationship('Commit')
 
     def __repr__(self):
         return '<Repo %s>' % self.repo_name
@@ -17,8 +17,8 @@ class User(Model):
     id = Column(Integer, unique=True)
     name = Column(String, unique=True)
     email = Column(String, unique=True)
-    repo_id = Relationship('Repository')
-    commit_id = Relationship('Commit')
+    repo_id = relationship('Repository')
+    commit_id = relationship('Commit')
 
     def __repr__(self):
         return '<User %s>' % self.name

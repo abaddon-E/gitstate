@@ -1,30 +1,28 @@
 from flask import Flask
 from flask.ext.sqlalchemy import SQLAlchemy
-
-
-
+from flask.ext.script import Manager
+from flask.ext.migrate import Migrate, MigrateCommand
 
 DEFAULT_APP_NAME = 'project'
 
+
 def create_app(app_name=DEFAULT_APP_NAME):
     app = Flask(
-    app_name,
-    static_folder='media/statics/',
-    template_folder='media/templates',
-    static_url_path='')
-
+        app_name,
+        static_folder='media/statics/',
+        template_folder='media/templates',
+        static_url_path='')
     app.config.from_object('config')
     configure_blueprints(app)
-    SQLAlchemy(app)
+    db = SQLAlchemy(app)
+    Migrate(app, db)
+    manager = Manager(app)
+    manager.add_command('db', MigrateCommand)
     configure_blueprints(app)
-    
-    return app
+    return manager
 
 
 def configure_blueprints(app):
-    """
-    Tanzimate marbot be blueprint ha va load kardan ya nasbe onha ro inja anjam midim
-    """
 
     app.config.setdefault('INSTALLED_BLUEPRINTS', [])
     blueprints = app.config['INSTALLED_BLUEPRINTS']
