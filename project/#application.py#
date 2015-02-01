@@ -1,22 +1,21 @@
-from project.config import DefaultConfig as base_config
+from config import Default_config as base_config
 from flask import Flask
-from project.extentions import sqldb
+from extentions import db
 
 DEFAULT_APP_NAME = 'project'
 
 
 
 def create_app(app_name=DEFAULT_APP_NAME , config = None):
-    
     app = Flask(
         app_name,
         static_folder='media/statics/',
         template_folder='media/templates',
-    )
+        static_url_path='')
     configure_app(app, config)
     configure_blueprints(app)
     configure_extentions(app)
-    
+
     return app
 
 
@@ -59,4 +58,4 @@ def configure_blueprints(app):
             pass
 
 def configure_extentions(app):
-    sqldb.init_app(app)
+    db.init_app(app)
