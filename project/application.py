@@ -1,6 +1,6 @@
 from project.config import DefaultConfig as base_config
 from flask import Flask
-from project.extentions import sqldb
+from project.extentions import sqldb, login_manager
 
 DEFAULT_APP_NAME = 'project'
 
@@ -60,3 +60,4 @@ def configure_blueprints(app):
 
 def configure_extentions(app):
     sqldb.init_app(app)
+    login_manager.init_app(app)

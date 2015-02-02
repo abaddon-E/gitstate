@@ -2,6 +2,7 @@
 # Emacs temp. files
 \#*\#
 *~
+*.pyc
 .#*
 tramp
 # ELC
@@ -31,3 +32,5 @@ semanticdb/
 url/
 # Flycheck
 flycheck_*
+
+**/env
